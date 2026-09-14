@@ -51,12 +51,15 @@ export function Header() {
           <div className="flex items-baseline gap-[34px] text-[15px] whitespace-nowrap">
             <a
               data-cursor="pointer"
-              className="text-[var(--color-text)] transition-opacity hover:opacity-80"
+              className="group relative inline-block py-1 text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text)]"
               href={withBase('/')}
             >
               {site.name}
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-x-0 -bottom-px h-px origin-left scale-x-0 bg-current transition-transform duration-300 ease-out group-hover:scale-x-100"
+              />
             </a>
-            <span className="hidden text-[var(--color-text-muted)] md:inline">{site.role}</span>
           </div>
           <nav className="hidden items-center gap-8 text-[15px] md:flex">
             {nav.map((item) => (

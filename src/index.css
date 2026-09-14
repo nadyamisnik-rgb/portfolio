@@ -73,9 +73,10 @@ html[data-loader-seen] [data-site-loader] {
   animation: img-skeleton-shimmer 1.6s ease-in-out infinite;
 }
 
-.img-skeleton:has(img) {
+.img-skeleton:has(img[data-loaded]) {
   animation: none;
   background-image: none;
+  background-color: transparent;
 }
 
 .text-gradient {
