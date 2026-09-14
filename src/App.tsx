@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { routerBasename } from './lib/base'
 import { BackToTop } from './components/BackToTop'
 import { CustomCursor } from './components/CustomCursor'
 import { Footer } from './components/Footer'
@@ -16,7 +17,7 @@ import { WorkPage } from './pages/Work'
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={routerBasename}>
       <SmoothScroll />
       <SceneBackground />
       <CustomCursor />

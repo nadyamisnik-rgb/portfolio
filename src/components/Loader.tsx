@@ -1,9 +1,10 @@
 import { type ReactNode, useEffect, useLayoutEffect, useState } from 'react'
 import { motion } from 'motion/react'
 import { projects } from '../lib/content'
+import { withBase } from '../lib/base'
 import { curtainCoverMs, curtainUncoverMs, PageCurtain } from './PageCurtain'
 
-const slides = projects.map((p) => p.image)
+const slides = projects.map((p) => withBase(p.image))
 
 export function Loader({ children }: { children: ReactNode }) {
   const [seen, setSeen] = useState(false)

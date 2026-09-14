@@ -1,4 +1,5 @@
 import type { Project } from '../lib/content'
+import { withBase } from '../lib/base'
 import { Parallax } from './ParallaxImage'
 
 type WorkCardItem = Pick<Project, 'title' | 'summary' | 'image' | 'imageAlt'> & {
@@ -29,7 +30,7 @@ export function WorkCard({
     >
       <a
         className={`block ${fill ? 'md:flex md:h-full md:min-h-0 md:flex-col' : ''}`}
-        href={href ?? `/work/${project.slug}`}
+        href={href ?? withBase(`/work/${project.slug}`)}
         aria-label={caption ? undefined : project.title}
         {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
       >
@@ -39,7 +40,7 @@ export function WorkCard({
             className={fill ? 'aspect-[3/2] w-full md:h-full md:aspect-auto' : `${aspectClass} w-full`}
           >
             <img
-              src={project.image}
+              src={withBase(project.image)}
               alt={caption ? project.imageAlt : ''}
               className={`absolute inset-0 h-full w-full object-cover ${imageClassName ?? ''}`}
             />

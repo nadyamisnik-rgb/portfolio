@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'motion/react'
 import { site, nav } from '../lib/content'
+import { withBase } from '../lib/base'
 
 export function Header() {
   const { pathname } = useLocation()
@@ -51,7 +52,7 @@ export function Header() {
             <a
               data-cursor="pointer"
               className="text-[var(--color-text)] transition-opacity hover:opacity-80"
-              href="/"
+              href={withBase('/')}
             >
               {site.name}
             </a>
@@ -63,7 +64,7 @@ export function Header() {
                 key={item.href}
                 data-cursor="pointer"
                 className="group relative inline-block py-1 text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text)]"
-                href={item.href}
+                href={withBase(item.href)}
               >
                 {item.label}
                 <span
@@ -75,7 +76,7 @@ export function Header() {
             <a
               data-cursor="pointer"
               className="btn-glass inline-flex h-9 items-center rounded-full px-4 leading-none"
-              href="/contact"
+              href={withBase('/contact')}
             >
               Get in touch
             </a>
@@ -148,7 +149,7 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
           >
             <nav className="flex flex-col gap-2">
               {nav.map((item, i) => (
-                <a key={item.href} data-cursor="pointer" className="block py-2" href={item.href} onClick={onClose}>
+                <a key={item.href} data-cursor="pointer" className="block py-2" href={withBase(item.href)} onClick={onClose}>
                   <motion.span
                     className="block font-serif text-[clamp(48px,12vw,80px)] leading-[1] font-light tracking-[-0.03em] text-[var(--color-text)]"
                     initial={{ opacity: 0, y: 14 }}
@@ -168,7 +169,7 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
                 <a
                   data-cursor="pointer"
                   className="btn-glass inline-flex h-14 items-center rounded-full px-7 text-[16px] leading-none"
-                  href="/contact"
+                  href={withBase('/contact')}
                   onClick={onClose}
                 >
                   Get in touch

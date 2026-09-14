@@ -1,4 +1,5 @@
 import { Reveal } from '../components/Reveal'
+import { withBase } from '../lib/base'
 
 export function NotFoundPage() {
   return (
@@ -19,14 +20,14 @@ export function NotFoundPage() {
             <a
               data-cursor="pointer"
               className="btn-glass inline-flex h-12 items-center rounded-full px-6 text-[15px] leading-none"
-              href="/"
+              href={withBase('/')}
             >
               Back home
             </a>
             <a
               data-cursor="pointer"
               className="inline-flex h-12 items-center px-2 text-[15px] text-[var(--color-text-muted)] transition-opacity hover:opacity-80"
-              href="/work"
+              href={withBase('/work')}
             >
               Work
             </a>

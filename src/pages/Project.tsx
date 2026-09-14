@@ -3,6 +3,7 @@ import { BeforeAfter } from '../components/BeforeAfter'
 import { Reveal } from '../components/Reveal'
 import { EmailCta } from './Home'
 import { NotFoundPage } from './NotFound'
+import { withBase } from '../lib/base'
 import { isGalleryCompare, projects } from '../lib/content'
 
 export function ProjectPage() {
@@ -23,14 +24,14 @@ export function ProjectPage() {
           isGalleryCompare(item) ? (
             <BeforeAfter
               key={`${item.before}-${item.after}`}
-              before={item.before}
-              after={item.after}
+              before={withBase(item.before)}
+              after={withBase(item.after)}
               alt={project.title}
             />
           ) : (
             <img
               key={item}
-              src={item}
+              src={withBase(item)}
               alt={`${project.title} ${index + 1}`}
               className="block h-auto w-full"
               loading={index === 0 ? 'eager' : 'lazy'}
@@ -46,7 +47,7 @@ export function ProjectPage() {
               <Reveal>
                 <a
                   data-cursor="link"
-                  href={`/work/${prev.slug}`}
+                  href={withBase(`/work/${prev.slug}`)}
                   className="group block max-w-[20rem] md:max-w-[28rem]"
                 >
                   <p className="mb-3 text-[11px] tracking-[0.18em] text-[var(--color-text-muted)] uppercase">
@@ -62,7 +63,7 @@ export function ProjectPage() {
               <Reveal>
                 <a
                   data-cursor="link"
-                  href={`/work/${next.slug}`}
+                  href={withBase(`/work/${next.slug}`)}
                   className="group block max-w-[20rem] md:ml-auto md:max-w-[28rem] md:text-right"
                 >
                   <p className="mb-3 text-[11px] tracking-[0.18em] text-[var(--color-text-muted)] uppercase">

@@ -3,6 +3,7 @@ import { Parallax } from '../components/ParallaxImage'
 import { Reveal } from '../components/Reveal'
 import { WorkGrid } from '../components/WorkGrid'
 import { services, site } from '../lib/content'
+import { withBase } from '../lib/base'
 
 export function HomePage() {
   return (
@@ -31,7 +32,7 @@ export function HomePage() {
               <div className="relative h-auto w-full overflow-hidden bg-[#4A45A8] md:h-full">
                 <Parallax offset={88} className="aspect-[3/4] w-full md:h-full md:aspect-auto">
                   <motion.img
-                    src="/images/portrait.jpg"
+                    src={withBase('/images/portrait.jpg')}
                     alt={site.name}
                     className="absolute inset-0 h-full w-full origin-center object-cover object-top"
                     initial={{ scale: 1.32 }}
@@ -99,7 +100,7 @@ export function HomePage() {
               <a
                 data-cursor="pointer"
                 className="btn-glass inline-flex h-12 items-center gap-2 rounded-full px-6 text-[15px] leading-none"
-                href="/contact"
+                href={withBase('/contact')}
               >
                 Get in touch
                 <svg

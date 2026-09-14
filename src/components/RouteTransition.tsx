@@ -1,5 +1,6 @@
 import { type ReactNode, useCallback, useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { toRoute } from '../lib/base'
 import { scrollToTop } from '../lib/scroll'
 import { curtainCoverMs, curtainUncoverMs, PageCurtain } from './PageCurtain'
 
@@ -99,7 +100,7 @@ export function RouteTransition({ children }: { children: ReactNode }) {
       ) {
         return
       }
-      const href = anchor.getAttribute('href') ?? ''
+      const href = toRoute(anchor.getAttribute('href') ?? '')
       if (isInternal(href, pathRef.current ?? '/')) {
         event.preventDefault()
         event.stopImmediatePropagation()
