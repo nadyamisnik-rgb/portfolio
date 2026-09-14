@@ -1,4 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
   <rect width="32" height="32" rx="8" fill="#121417"/>
-  <text x="16" y="22" text-anchor="middle" font-family="Georgia, serif" font-size="16" font-style="italic" fill="#FDFDFD">N</text>
+  <g fill="#FDFDFD" transform="translate(16 16) skewX(-10) translate(-16 -16)">
+    <path d="M9 24V8h3.15l7.7 12.15V8H23v16h-3.15L12.15 11.85V24H9z"/>
+  </g>
 </svg>
