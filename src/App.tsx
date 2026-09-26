@@ -12,6 +12,7 @@ import { AboutPage } from './pages/About'
 import { ContactPage } from './pages/Contact'
 import { HomePage } from './pages/Home'
 import { NotFoundPage } from './pages/NotFound'
+import { IgamingConceptPage } from './pages/Igaming'
 import { ProjectPage } from './pages/Project'
 import { WorkPage } from './pages/Work'
 
@@ -29,6 +30,7 @@ export default function App() {
               <Route path="/" element={<HomePage />} />
               <Route path="/work" element={<WorkPage />} />
               <Route path="/work/:slug" element={<ProjectPage />} />
+              <Route path="/work/:slug/:concept" element={<IgamingConceptPage />} />
               <Route path="/about" element={<AboutPage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="*" element={<NotFoundPage />} />

@@ -7,24 +7,34 @@ function bySlug(slug: string) {
 }
 
 export function WorkGrid() {
+  const featured = bySlug('igaming')
   const hero = bySlug('flexiflow')
   const rightTop = bySlug('status')
   const rightBottom = bySlug('miscellaneous')
   const leftTop = bySlug('casino-platform')
   const leftBottom = bySlug('casino-ui-style')
   const rightLarge = bySlug('echo')
-  if (!hero || !rightTop || !rightBottom || !leftTop || !leftBottom || !rightLarge) return null
+  if (!featured || !hero || !rightTop || !rightBottom || !leftTop || !leftBottom || !rightLarge) {
+    return null
+  }
 
   return (
     <div className="flex flex-col gap-y-14 md:gap-y-24">
       <div className="grid grid-cols-1 gap-y-14 md:grid-cols-12 md:gap-x-8 md:gap-y-8">
-        <Reveal className="h-full md:col-span-8 md:row-span-2">
+        <Reveal className="order-1 h-full md:col-span-8 md:row-span-2">
           <WorkCard project={hero} fill />
         </Reveal>
-        <Reveal className="md:col-span-4">
+        <Reveal className="order-2 md:order-4 md:col-span-12 md:mt-16">
+          <WorkCard
+            project={featured}
+            aspectClass="aspect-[3/2] md:aspect-[16/7]"
+            imageClassName="object-top"
+          />
+        </Reveal>
+        <Reveal className="order-3 md:order-2 md:col-span-4">
           <WorkCard project={rightTop} aspectClass="aspect-[3/2]" />
         </Reveal>
-        <Reveal className="md:col-span-4">
+        <Reveal className="order-4 md:order-3 md:col-span-4">
           <WorkCard project={rightBottom} aspectClass="aspect-[3/2]" />
         </Reveal>
       </div>
