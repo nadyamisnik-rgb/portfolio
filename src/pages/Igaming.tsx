@@ -1,3 +1,4 @@
+import { type ReactNode, useLayoutEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Reveal } from '../components/Reveal'
 import { withBase } from '../lib/base'
@@ -11,9 +12,6 @@ import {
 import { CasePager } from '../components/CasePager'
 import { EmailCta } from './Home'
 import { NotFoundPage } from './NotFound'
-import { PalmPage } from './Palm'
-import { PokerTablePage } from './PokerTable'
-import { RioPage } from './Rio'
 
 export function IgamingPage({ project }: { project: Project }) {
   const index = projects.findIndex((p) => p.slug === project.slug)
@@ -139,39 +137,79 @@ export function IgamingConceptPage() {
   if (slug !== 'igaming') return <NotFoundPage />
   const item = igamingConcepts.find((c) => c.slug === concept)
   if (!item) return <NotFoundPage />
-  if (item.slug === 'rio') return <RioPage concept={item} />
-  if (item.slug === 'poker-table') return <PokerTablePage concept={item} />
-  if (item.slug === 'palm') return <PalmPage concept={item} />
+
+  const index = igamingConcepts.findIndex((c) => c.slug === item.slug)
+  const prev = igamingConcepts[(index - 1 + igamingConcepts.length) % igamingConcepts.length]
+  const next = igamingConcepts[(index + 1) % igamingConcepts.length]
 
   return (
-    <main className="font-igaming relative min-h-[100svh] bg-[#031413] text-[#F6F4E9]">
-      <section className="flex min-h-[100svh] flex-col px-5 pt-32 pb-16 md:px-10 md:pt-[8.75rem]">
-        <div className="mx-auto flex w-full max-w-[89.5rem] flex-1 flex-col">
-          <Reveal>
-            <p
-              className="mb-6 text-[12px] font-bold tracking-[0.12em] uppercase md:mb-8"
-              style={{ color: item.accent }}
-            >
-              {item.n}
-            </p>
-          </Reveal>
-          <Reveal>
-            <h1 className="text-[clamp(40px,6.4vw,6rem)] leading-[1.05] font-extrabold tracking-[-0.04em]">
-              {item.title}
-            </h1>
-          </Reveal>
-          <Reveal className="mt-12 md:mt-16">
-            <a
-              data-cursor="pointer"
-              className="inline-flex h-12 items-center text-[15px] text-[#9FB2AA] transition-opacity hover:text-[#F6F4E9] hover:opacity-100"
-              href={withBase('/work/igaming')}
-            >
-              ← Back
-            </a>
-          </Reveal>
-        </div>
+    <main>
+      <section className="pt-20 md:pt-[4.75rem]">
+        {item.slides.map((src, slideIndex) => (
+          <GalleryFrame key={src} fill={slideIndex === 0}>
+            <img
+              src={withBase(src)}
+              alt={`${item.title} ${slideIndex + 1}`}
+              className="block h-auto w-full opacity-0 transition-opacity duration-500 data-[loaded=true]:opacity-100"
+              loading={slideIndex === 0 ? 'eager' : 'lazy'}
+              fetchPriority={slideIndex === 0 ? 'high' : 'low'}
+            />
+          </GalleryFrame>
+        ))}
       </section>
+      <CasePager
+        prev={
+          prev && prev.slug !== item.slug
+            ? { href: `/work/igaming/${prev.slug}`, title: prev.title }
+            : null
+        }
+        next={
+          next && next.slug !== item.slug
+            ? { href: `/work/igaming/${next.slug}`, title: next.title }
+            : null
+        }
+      />
+      <EmailCta />
     </main>
+  )
+}
+
+function GalleryFrame({
+  children,
+  fill,
+}: {
+  children: ReactNode
+  fill?: boolean
+}) {
+  const [loaded, setLoaded] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
+
+  useLayoutEffect(() => {
+    const img = ref.current?.querySelector('img')
+    if (!img) return
+    const done = () => {
+      img.dataset.loaded = 'true'
+      setLoaded(true)
+    }
+    if (img.complete) {
+      done()
+      return
+    }
+    img.addEventListener('load', done)
+    img.addEventListener('error', done)
+    return () => {
+      img.removeEventListener('load', done)
+      img.removeEventListener('error', done)
+    }
+  }, [])
+
+  return (
+    <div
+      ref={ref}
+      className={`relative w-full ${loaded ? '' : `img-skeleton ${fill ? 'min-h-[100svh]' : 'min-h-[56vh]'}`}`}
+    >
+      {children}
+    </div>
   )
 }
 
